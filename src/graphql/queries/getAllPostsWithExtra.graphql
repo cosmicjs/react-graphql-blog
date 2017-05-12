@@ -1,0 +1,8 @@
+#import "../fragments/postAllContent.graphql"
+
+query($bucketSlug: String! $readKey: String!){
+	objectsWithExtra: objectsByType(bucket_slug: $bucketSlug, read_key: $readKey, type_slug: "posts") {
+		...PostAllContent
+	}
+}
+

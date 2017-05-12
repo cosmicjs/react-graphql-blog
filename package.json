@@ -6,6 +6,7 @@
 		"extends": "codogo"
 	},
 	"dependencies": {
+		"moment": "^2.18.1",
 		"prettier": "^1.2.2",
 		"ramda": "^0.23.0",
 		"react": "^15.5.4",

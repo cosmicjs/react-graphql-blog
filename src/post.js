@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { getPostQuery, } from "./graphql";
 import config from "../config";
 
+import LoadingLogo from "./loadingLogo";
+
 // ------------------------------
 
 const PostContainerStyled = styled.div`
@@ -37,50 +39,70 @@ const PostTitle = styled.h1`
 const PostContents = styled.div`
 `;
 
-const Post = graphql(getPostQuery)(props => (
+const LoadingContainer = styled.div`
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+`;
+
+const Loading = () => (
+	<LoadingContainer>
+		<LoadingLogo />
+	</LoadingContainer>
+);
+
+const Post = props => (
+	<PostInner>
+		<PostImage src = { props.hero } />
+
+		<PostTitle>
+			{props.title}
+		</PostTitle>
+
+		<PostContents
+			dangerouslySetInnerHTML = { {
+				__html: props.content,
+			} }
+		/>
+	</PostInner>
+);
+
+const PostWrapper = graphql(getPostQuery)(props => (
 	<PostContainerStyled>
-		<PostInner>
-			<PostImage
-				src = { R.path([
+		{props.data.loading
+			? <Loading />
+			: <Post
+				hero = { R.path([
 					"data",
 					"object",
 					"metadata",
 					"hero",
 					"imgix_url",
 				])(props) }
-			/>
-
-			<PostTitle>
-				{R.path(["data", "object", "title",])(props)}
-			</PostTitle>
-
-			<PostContents
-				dangerouslySetInnerHTML = { {
-					__html: R.path(["data", "object", "content",])(props),
-				} }
-			/>
-		</PostInner>
+				title = { R.path(["data", "object", "title",])(props) }
+				content = { R.path(["data", "object", "content",])(props) }
+				/>}
 	</PostContainerStyled>
 ));
 
-Post.defaultProps = {
+PostWrapper.defaultProps = {
 	bucketSlug: config.bucket.slug,
 	readKey: config.bucket["read_key"],
 };
 
-const PostWrapper = props => (
-	<Post postSlug = { R.path(["match", "params", "postSlug",])(props) } />
+const PostSlugger = props => (
+	<PostWrapper postSlug = { R.path(["match", "params", "postSlug",])(props) } />
 );
 
-const HomeWrapper = () => <Post postSlug = "home" />;
+const HomeWrapper = () => <PostWrapper postSlug = "home" />;
 
-const FourOhFourWrapper = () => <Post postSlug = "404" />;
+const FourOhFourWrapper = () => <PostWrapper postSlug = "404" />;
 
 // ------------------------------
 
 export default () => (
 	<Switch>
-		<Route path = "/post/:postSlug" component = { PostWrapper } />
+		<Route path = "/post/:postSlug" component = { PostSlugger } />
 
 		<Route exact path = "/" component = { HomeWrapper } />
 

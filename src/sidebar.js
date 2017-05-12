@@ -1,8 +1,23 @@
 import React from "react";
+import moment from "moment";
 import { NavLink, } from "react-router-dom";
-import styled, { css, } from "styled-components";
+import styled, { css, keyframes, } from "styled-components";
 
 // ------------------------------
+
+const Shine = ({ theme, }) => keyframes`
+	{
+		0% {
+			background-color: ${theme.gray};
+		}
+		50% {
+			background-color: ${theme.lightgray};
+		}
+		100% {
+			background-color: ${theme.gray};
+		}
+	}
+`;
 
 const SideBarStyled = styled.div`
 	align-items: left;
@@ -11,10 +26,9 @@ const SideBarStyled = styled.div`
 	flex-direction: column;
 	flex: 2;
 	height: 100vh;
-	max-width: 200px;
+	max-width: 300px;
 	min-width: 150px;
 	padding: 1em;
-
 `;
 
 const SideBarStyling = css`
@@ -46,12 +60,29 @@ const SideBarLink = styled(NavLink)`
 	font-size: 1.2em;
 `;
 
-const SubSideBarLink = styled(NavLink)`
+const PostLinkStyled = styled(NavLink)`
 	${SideBarStyling}
-	font-size: 2em;
+	display: flex;
+	flex-direction: column;
+	margin: 0.3em;
+`;
+
+const PostTitle = styled.p`
+	font-size: 1.5em;
+	margin: -0.2em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 100%;
+`;
+
+const PostDate = styled.div`
+	font-size: 1em;
+	align-self: flex-end;
 `;
 
 const Nav = styled.div`
+	align-self: stretch;
 	flex: 1;
 `;
 
@@ -69,6 +100,52 @@ const Credit = styled.div`
 	}
 `;
 
+const LoadingContainer = styled.div`
+	align-self: stretch;
+	align-items: stretch;
+	flex: 1;
+`;
+
+const LoadingTitle = styled.div`
+	margin: 2px;
+	height: 1.5em;
+	animation: ${Shine} 1s linear infinite;
+	width: 70%;
+`;
+
+const LoadingDate = styled.div`
+	margin: 2px;
+	height: 1em;
+	animation: ${Shine} 1s linear infinite;
+	align-self: flex-end;
+	width: 50%;
+`;
+
+// ------------------------------
+
+const LoadingItem = () => (
+	<PostLinkStyled to = "/">
+		<LoadingTitle />
+		<LoadingDate />
+	</PostLinkStyled>
+);
+
+const Loading = () => (
+	<LoadingContainer>
+		<LoadingItem />
+		<LoadingItem />
+		<LoadingItem />
+	</LoadingContainer>
+);
+
+const PostLink = ({ title, modifiedAt, slug, }) => (
+	<PostLinkStyled to = { `/post/${slug}` }>
+		<PostTitle>{title}</PostTitle>
+
+		<PostDate> {moment(modifiedAt).fromNow()}</PostDate>
+	</PostLinkStyled>
+);
+
 // ------------------------------
 
 export default props => (
@@ -82,11 +159,12 @@ export default props => (
 				Posts
 			</SideBarText>
 
-			{props.posts.map(({ title, slug, }) => (
-				<SubSideBarLink key = { slug } to = { `/post/${slug}` }>
-					{title}
-				</SubSideBarLink>
-			))}
+			{props.loading
+				? <Loading />
+				: props.posts.map(({ slug, ...rest }) => (
+					<PostLink key = { slug } slug = { slug } { ...rest } />
+					))}
+
 		</Nav>
 
 		<Credit>

@@ -1,9 +1,9 @@
 import React from "react";
-import { graphql, ApolloProvider, } from "react-apollo";
+import { graphql, ApolloProvider, compose, } from "react-apollo";
 import { BrowserRouter as Router, } from "react-router-dom";
 import styled, { ThemeProvider, } from "styled-components";
 
-import client, { getAllPostsQuery, } from "./graphql";
+import client, { getAllPostsQuery, getAllPostsWithExtraQuery, } from "./graphql";
 
 import SideBar from "./sidebar";
 import Post from "./post";
@@ -18,9 +18,15 @@ const RootStyled = styled.div`
 	align-items: stretch;
 `;
 
-const Root = graphql(getAllPostsQuery)(props => (
+const Root = compose(
+	graphql(getAllPostsQuery, { name: "allPosts", }),
+	graphql(getAllPostsWithExtraQuery, { name: "allPostsWithExtra", }),
+)(props => (
 	<RootStyled>
-		<SideBar posts = { R.pathOr([], ["data", "objects",])(props) } />
+		<SideBar
+			loading = { props.allPosts.loading }
+			posts = { R.pathOr([], ["allPosts", "objects",])(props) }
+		/>
 
 		<Post />
 	</RootStyled>

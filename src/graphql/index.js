@@ -1,4 +1,5 @@
 import { ApolloClient, createNetworkInterface, } from "react-apollo";
+import { toIdValue, } from "apollo-client";
 
 // ------------------------------
 
@@ -6,23 +7,32 @@ const networkInterface = createNetworkInterface({
 	uri: "https://graphql.cosmicjs.com/v1",
 });
 
-networkInterface.use([
-	{
-		applyMiddleware(req, next) {
-			console.log({ req, });
+const dataIdFromObject = ({ __typename, slug, }) => __typename + slug;
 
-			next();
-		},
+const customResolvers = {
+	Query: {
+		object: (_, args) =>
+			toIdValue(
+				dataIdFromObject({ __typename: "Object", slug: args.slug, }),
+			),
 	},
-]);
+};
 
 const client = new ApolloClient({
 	networkInterface: networkInterface,
+	dataIdFromObject,
+	customResolvers,
 });
 
 // ------------------------------
 
 export default client;
 
-export { default as getAllPostsQuery, } from "./getAllPosts.graphql";
-export { default as getPostQuery, } from "./getPost.graphql";
+export { default as getAllPostsQuery, } from "./queries/getAllPosts.graphql";
+export {
+	default as getAllPostsWithExtraQuery,
+} from "./queries/getAllPostsWithExtra.graphql";
+export {
+	default as getNextAndPrevPostsQuery,
+} from "./queries/getNextAndPrevPosts.graphql";
+export { default as getPostQuery, } from "./queries/getPost.graphql";
