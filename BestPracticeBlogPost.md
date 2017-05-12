@@ -21,6 +21,7 @@ But, like any library, you shouldn't start using these state managment solutions
 "But!" I hear you cry "How will i store/cache/handle the API first data I'm fetching over the network, from a great service like [CosmicJS](https://cosmicjs.com/)?". Well worry not! In this post we're going to explore [GraphQL](http://graphql.org/), a system for declaritivly fetching data from a server and specifically the [Apollo](https://www.apollodata.com/) GraphQL client for simply interfacing with GraphQL.
 
 ## GraphQL to the rescue.
+Graphql
 
 ## Use routing to store your view information
 
