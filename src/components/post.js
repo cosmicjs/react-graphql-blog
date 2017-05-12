@@ -6,10 +6,12 @@ import { getPostQuery, } from "../graphql";
 import config from "../../config";
 
 import LoadingLogo from "./loadingLogo";
+import Share from "./share";
 
 // ------------------------------
 
 const PostContainerStyled = styled.div`
+	position: relative;
 	align-items: center;
 	flex: 7;
 	padding: 8px;
@@ -74,6 +76,8 @@ const Post = props => (
 				__html: props.content,
 			} }
 		/>
+
+		<Share />
 	</PostInner>
 );
 
