@@ -1,10 +1,9 @@
 import React from "react";
 import { graphql, } from "react-apollo";
-import { Route, Switch, } from "react-router";
-import styled from "styled-components";
+import styled, { keyframes, } from "styled-components";
 
-import { getPostQuery, } from "./graphql";
-import config from "../config";
+import { getPostQuery, } from "../graphql";
+import config from "../../config";
 
 import LoadingLogo from "./loadingLogo";
 
@@ -18,13 +17,24 @@ const PostContainerStyled = styled.div`
 	overflow: scroll;
 `;
 
+const fadeIn = keyframes`
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1
+	}
+`;
+
 const PostInner = styled.div`
 	max-width: 600px;
 	min-width: 300px;
 	text-align: left;
 	width: 100%;
 	padding: 2em 1em;
-	display: block;
+   display: block;
+   animation: ${fadeIn} 1s ;
 `;
 
 const PostImage = styled.img`
@@ -69,7 +79,7 @@ const Post = props => (
 
 const PostWrapper = graphql(getPostQuery)(props => (
 	<PostContainerStyled>
-		{props.data.loading
+		{props.data.loading || props.blank
 			? <Loading />
 			: <Post
 				hero = { R.path([
@@ -90,22 +100,12 @@ PostWrapper.defaultProps = {
 	readKey: config.bucket["read_key"],
 };
 
-const PostSlugger = props => (
+export default props => (
 	<PostWrapper postSlug = { R.path(["match", "params", "postSlug",])(props) } />
 );
 
-const HomeWrapper = () => <PostWrapper postSlug = "home" />;
+export const Home = () => <PostWrapper postSlug = "home" />;
 
-const FourOhFourWrapper = () => <PostWrapper postSlug = "404" />;
+export const FourOhFour = () => <PostWrapper postSlug = "404" />;
 
-// ------------------------------
-
-export default () => (
-	<Switch>
-		<Route path = "/post/:postSlug" component = { PostSlugger } />
-
-		<Route exact path = "/" component = { HomeWrapper } />
-
-		<Route component = { FourOhFourWrapper } />
-	</Switch>
-);
+export const Blank = () => <PostWrapper blank postSlug = "home" />;

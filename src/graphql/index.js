@@ -29,10 +29,13 @@ const client = new ApolloClient({
 export default client;
 
 export { default as getAllPostsQuery, } from "./queries/getAllPosts.graphql";
+
 export {
 	default as getAllPostsWithExtraQuery,
 } from "./queries/getAllPostsWithExtra.graphql";
+
 export {
 	default as getNextAndPrevPostsQuery,
 } from "./queries/getNextAndPrevPosts.graphql";
+
 export { default as getPostQuery, } from "./queries/getPost.graphql";

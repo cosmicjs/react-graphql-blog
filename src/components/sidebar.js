@@ -2,6 +2,10 @@ import React from "react";
 import moment from "moment";
 import { NavLink, } from "react-router-dom";
 import styled, { css, keyframes, } from "styled-components";
+import { compose, graphql, } from "react-apollo";
+
+import { getAllPostsWithExtraQuery, getAllPostsQuery, } from "../graphql";
+import config from "../../config";
 
 // ------------------------------
 
@@ -21,14 +25,15 @@ const Shine = ({ theme, }) => keyframes`
 
 const SideBarStyled = styled.div`
 	align-items: left;
-	background-color: ${R.path(["theme", "blue",])};
+	background-color: ${R.path(["theme", "darkBlueLight",])};
 	display: flex;
 	flex-direction: column;
 	flex: 2;
 	height: 100vh;
 	max-width: 300px;
 	min-width: 150px;
-	padding: 1em;
+   padding: 1em;
+   z-index: 2;
 `;
 
 const SideBarStyling = css`
@@ -51,25 +56,20 @@ const SideBarStyling = css`
 
 const SideBarText = styled.p`
 	${SideBarStyling}
-	font-size: 1.2em;
+	font-size: 1.5em;
 	color: ${R.path(["theme", "lightgray",])};
-`;
-
-const SideBarLink = styled(NavLink)`
-	${SideBarStyling}
-	font-size: 1.2em;
 `;
 
 const PostLinkStyled = styled(NavLink)`
 	${SideBarStyling}
 	display: flex;
 	flex-direction: column;
-	margin: 0.3em;
+	margin: 0.5em;
 `;
 
 const PostTitle = styled.p`
-	font-size: 1.5em;
-	margin: -0.2em;
+	font-size: 1.2em;
+	margin: -0.1em;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -79,6 +79,7 @@ const PostTitle = styled.p`
 const PostDate = styled.div`
 	font-size: 1em;
 	align-self: flex-end;
+	margin: 2px;
 `;
 
 const Nav = styled.div`
@@ -107,18 +108,25 @@ const LoadingContainer = styled.div`
 `;
 
 const LoadingTitle = styled.div`
-	margin: 2px;
-	height: 1.5em;
+	border-radius: 1.6em;
+	height: 1.2em;
 	animation: ${Shine} 1s linear infinite;
 	width: 70%;
 `;
 
 const LoadingDate = styled.div`
+	border-radius: 0.5em;
 	margin: 2px;
 	height: 1em;
 	animation: ${Shine} 1s linear infinite;
 	align-self: flex-end;
 	width: 50%;
+`;
+
+const Line = styled.div`
+	background-color: ${R.path(["theme", "white",])}
+	height: 1px;
+	margin: 4px 0;
 `;
 
 // ------------------------------
@@ -148,20 +156,21 @@ const PostLink = ({ title, modifiedAt, slug, }) => (
 
 // ------------------------------
 
-export default props => (
+const SideBar = compose(
+	graphql(getAllPostsQuery, { name: "allPosts", }),
+	graphql(getAllPostsWithExtraQuery, { name: "allPostsPreFetch", }),
+)(props => (
 	<SideBarStyled>
 		<Nav>
-			<SideBarLink exact to = "/">
-				Home
-			</SideBarLink>
-
 			<SideBarText>
 				Posts
 			</SideBarText>
 
-			{props.loading
+			<Line />
+
+			{props.allPosts.loading
 				? <Loading />
-				: props.posts.map(({ slug, ...rest }) => (
+				: props.allPosts.objects.map(({ slug, ...rest }) => (
 					<PostLink key = { slug } slug = { slug } { ...rest } />
 					))}
 
@@ -175,4 +184,11 @@ export default props => (
 			</span>
 		</Credit>
 	</SideBarStyled>
-);
+));
+
+SideBar.defaultProps = {
+	bucketSlug: config.bucket.slug,
+	readKey: config.bucket["read_key"],
+};
+
+export default SideBar;

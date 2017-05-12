@@ -5,11 +5,11 @@ Tips, Tricks, and best practices
 <!-- vim-markdown-toc GFM -->
 * [You probably don't need state](#you-probably-dont-need-state)
 * [GraphQL to the rescue.](#graphql-to-the-rescue)
+* [Use routing to store your view information](#use-routing-to-store-your-view-information)
+* [Use Fragments](#use-fragments)
+* [Display something nice while you're loading](#display-something-nice-while-youre-loading)
 * [Teach `Apollo` the shape of your data](#teach-apollo-the-shape-of-your-data)
 * [Use Webpack Loaders](#use-webpack-loaders)
-* [Use Fragments](#use-fragments)
-* [Use routing to store your view information](#use-routing-to-store-your-view-information)
-* [Display something nice while you're loading](#display-something-nice-while-youre-loading)
 
 <!-- vim-markdown-toc -->
 
@@ -22,12 +22,12 @@ But, like any library, you shouldn't start using these state managment solutions
 
 ## GraphQL to the rescue.
 
-## Teach `Apollo` the shape of your data
-
-## Use Webpack Loaders
+## Use routing to store your view information
 
 ## Use Fragments
 
-## Use routing to store your view information
-
 ## Display something nice while you're loading
+
+## Teach `Apollo` the shape of your data
+
+## Use Webpack Loaders
