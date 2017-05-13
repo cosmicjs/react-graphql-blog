@@ -32,24 +32,24 @@ const SideBarStyled = styled.div`
 	height: 100vh;
 	max-width: 300px;
 	min-width: 150px;
-   padding: 1em;
-   z-index: 2;
+	padding: 1em;
+	z-index: 2;
 `;
 
 const SideBarStyling = css`
 	margin: 2px;
 	text-decoration: none;
-	color: ${R.path(["theme", "white",])};
+	color: ${R.path(["theme", "lightgray",])};
 
 	&:hover {
-		color: ${R.path(["theme", "lightgray",])};
+		color: ${R.path(["theme", "darkBlue",])};
 	}
 
 	&.active {
-		color: ${R.path(["theme", "darkBlue",])};
+		color: ${R.path(["theme", "white",])};
 
 		&:hover {
-			color: ${R.path(["theme", "darkBlueLight",])};
+			color: ${R.path(["theme", "darkBlue",])};
 		}
 	}
 `;
@@ -57,7 +57,7 @@ const SideBarStyling = css`
 const SideBarText = styled.p`
 	${SideBarStyling}
 	font-size: 1.5em;
-	color: ${R.path(["theme", "lightgray",])};
+	color: ${R.path(["theme", "white",])};
 `;
 
 const PostLinkStyled = styled(NavLink)`
@@ -147,7 +147,7 @@ const Loading = () => (
 );
 
 const PostLink = ({ title, modifiedAt, slug, }) => (
-	<PostLinkStyled to = { `/post/${slug}` }>
+	<PostLinkStyled to = { `/post/${slug}/` }>
 		<PostTitle>{title}</PostTitle>
 
 		<PostDate> {moment(modifiedAt).fromNow()}</PostDate>

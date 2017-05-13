@@ -45,7 +45,7 @@ export default () => (
 				Home
 			</BlogLink>
 
-			<BlogLink to = "/post">
+			<BlogLink to = "/post/">
 				Blog
 			</BlogLink>
 
