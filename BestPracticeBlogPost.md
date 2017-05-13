@@ -7,7 +7,7 @@ In this post we'll be exploring some tips, tricks, and techniques we've learnt f
 * [React](#react)
    * [You probably don't need state](#you-probably-dont-need-state)
    * [Use routing to store your view information](#use-routing-to-store-your-view-information)
-   * [Styled-Components and ThemeProvider help you stay on top of your styles](#styled-components-and-themeprovider-help-you-stay-on-top-of-your-styles)
+   * [Styled-Components and ThemeProvider stay on top of your styles](#styled-components-and-themeprovider-stay-on-top-of-your-styles)
 * [GraphQL](#graphql)
    * [Setting up the CosmicJS GraphQL API](#setting-up-the-cosmicjs-graphql-api)
    * [Reuse Data with `Fragments`](#reuse-data-with-fragments)
@@ -24,16 +24,16 @@ In this post we'll be exploring some tips, tricks, and techniques we've learnt f
 ## React
 
 ### You probably don't need state
-If you've been using React for a while, your first instinct when starting a new project might be to start setting up a state management library like [redux](https://github.com/reactjs/redux), [MobX](https://github.com/mobxjs/mobx), or [freactal](https://github.com/FormidableLabs/freactal). These are really powerful solutions for state management, that can make wrestling with the state of a large application much more manageable.
+If you've been using React for a while, your first instinct when starting a new project might be to set up a state management library like [redux](https://github.com/reactjs/redux), [MobX](https://github.com/mobxjs/mobx), or [freactal](https://github.com/FormidableLabs/freactal). These are really powerful solutions for state management, that can make wrestling with the state of a large application much more manageable.
 
 But, like any library, you shouldn't start using these state management solutions until you actually need to! For a simple blog like the one we'll be building today the only state you actually need is the current URL.
 
 "But!" I hear you cry "How will I store/cache/handle the API first data I'm fetching over the network, from a great service like [CosmicJS](https://cosmicjs.com/)?". Well worry not! In the second half of this post we're going to explore [GraphQL](http://GraphQL.org/), a system for declaratively fetching data from a server and specifically the [Apollo](https://www.Apollodata.com/) GraphQL client for simply interfacing with GraphQL.
 
-We're focusing on a simple, view only app in this post, but it's worth mentioning that the `state` provided by class based React components is often sufficient for bits of state that only affect a localised bit of your app. Dan Abramov (creator of redux) has written in more detail about this subject [here](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)
+We're focusing on a simple, view only app in this post, but it's worth mentioning that the `state` provided by class based React components is often sufficient for bits of state that only affect a localised part of your app. Dan Abramov (creator of redux) has written in more detail about this subject [here](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)
 
 ### Use routing to store your view information
-Of course, if we don't have _some_ state, we'll just be displaying our whole web app all at once. Luckily, your browser provides a build in state store with undo history, simple sharing, and a simple interface: your URL bar.
+Of course, if we don't have _some_ state, we'll just be displaying our whole web app all at once. Luckily, your browser provides a built in state store with undo history, frictionless sharing, and a simple interface: your URL bar.
 
 The excellent [React Router](https://reacttraining.com/react-router/) library provides a simple and expressive interface for navigating around your app. Most of the routing in our example app is handled in the following file:
 
@@ -76,10 +76,12 @@ The `Switch` component renders the first of its children with a matching `path`.
 + If the URL is `/` we show the home page
 + For any other URL we show the 404 page
 
-All this together means we can simply switch between all the different views of our app.
+All this together means we can simply switch between all the different views of our app just by changing the URL.
 
-### Styled-Components and ThemeProvider help you stay on top of your styles
-CSS precompilers like `SASS` first enabled web developers to start using variables and functions in their styled. Then react came along and popularised the inline style system: 
+React Router provides a `Link` component, that acts like a supercharged `<a>` tag. You should use `Link` for any hyperlinks that don't lead out of your website.
+
+### Styled-Components and ThemeProvider stay on top of your styles
+CSS precompilers like `SASS` first enabled web developers to start using variables and functions in their styles. Then react came along and popularised the inline style system: 
 
 ```javascript
 <div
@@ -96,8 +98,8 @@ The hottest new trend is [Styled Components](https://github.com/styled-component
 
 ```javascript
 const Link = styled.a`
-	color: white
-	font-size: 0.8em;
+   color: white;
+   font-size: 0.8em;
    text-decoration: none;
 `;
 ```
@@ -107,11 +109,7 @@ Styled Components also provide a way to set global variables that are inherited 
 ```javascript
 const theme = {
 	white: "#fff",
-	lightgray: "#ddd",
-	gray: "#bbb",
 	blue: "#00afd7",
-	darkBlue: "#005063",
-	darkBlueLight: "#007392",
 };
 
 export default () => (
@@ -125,8 +123,8 @@ Now every styled component that is a child of `App` can access those variables u
 
 ```javascript
 const Link = styled.a`
-	color: ${ (props) => props.theme.white };
-	font-size: 0.8em;
+   color: ${ (props) => props.theme.blue };
+   font-size: 0.8em;
    text-decoration: none;
 `
 ```
@@ -156,10 +154,10 @@ First we need to setup our `ApolloClient`:
 ```javascript
 //src/GraphQL/index.js
 
-import { ApolloClient, createNetworkInterface, } from "react-Apollo";
+import { ApolloClient, createNetworkInterface, } from "react-apollo";
 
 const networkInterface = createNetworkInterface({
-	uri: "https://GraphQL.cosmicjs.com/v1",
+	uri: "https://graphql.cosmicjs.com/v1",
 });
 
 const client = new ApolloClient({
@@ -175,7 +173,7 @@ Which we then provide to the rest of our app using the `ApolloProvider`:
 //src/app.js
 
 import React from "react";
-import { ApolloProvider, } from "react-Apollo";
+import { ApolloProvider, } from "react-apollo";
 import styled, { ThemeProvider, } from "styled-components";
 
 import client from "./GraphQL";
@@ -243,7 +241,7 @@ query($bucketSlug: String! $readKey: String! $postSlug: String!){
 `Fragments` are great for two reasons: 
 
 1. They allow you to modularise and reuse the properties you want to get from a query
-2. They ensure that two queries which should get the same information always stay in sync, so Apollo can sucsesfully cache the results
+2. They ensure that two queries which should get the same information always stay in sync, so Apollo can successfully cache the results
 
 ### Use Component props as query parameters.
 
@@ -263,26 +261,26 @@ For variables that are the same across our app, like `$bucketSlug`, we can add t
 ```javasript
 //src/components/sidebar.js
 
-const Sidebar = compose(
-	GraphQL(getAllPostsQuery, { name: "allPosts", }),
-)(props => (
-	<SidebarStyled>
-		<Nav>
-			<SidebarText>
-				Posts
-			</SidebarText>
+const Sidebar = graphql(getAllPostsQuery, { name: "allPosts", })(
+   props => (
+      <SidebarStyled>
+         <Nav>
+            <SidebarText>
+               Posts
+            </SidebarText>
 
-			{
-         props.allPosts.loading
-				? <Loading />
-				: props.allPosts.objects.map(({ slug, ...rest }) => (
-					<PostLink key = { slug } slug = { slug } { ...rest } />
-            ))
-         }
+            {
+            props.allPosts.loading
+               ? <Loading />
+               : props.allPosts.objects.map(({ slug, ...rest }) => (
+                  <PostLink key = { slug } slug = { slug } { ...rest } />
+               ))
+            }
 
-		</Nav>
-	</SidebarStyled>
-));
+         </Nav>
+      </SidebarStyled>
+   )
+);
 
 SideBar.defaultProps = {
 	bucketSlug: config.bucket.slug,
@@ -292,7 +290,7 @@ SideBar.defaultProps = {
 
 #### Dynamic Props
 
-For variables that change for differnt instances of a component, like `$postSlug`, you can pass them in as a prop to each instance of a component:
+For variables that change for different instances of a component, like `$postSlug`, you can pass them in as a prop to each instance of a component:
 ```javascript
 //src/components/post.js
 const PostWrapper = GraphQL(getPostQuery)(props => (
@@ -331,7 +329,7 @@ query($bucketSlug: String! $readKey: String!){
 }
 ```
 
-This query gets _all_ the fields of every post, meaning all that data is already loaded into the cache before we navigate to a Post page. You can atatch multipul queries to a component using the `compose` function from the `react-Apollo` package.
+This query gets _all_ the fields of every post, meaning all that data is already loaded into the cache before we navigate to a Post page. You can attach multiple queries to a component using the `compose` function from the `react-apollo` package.
 
 ```javascript
 //src/components/sidebar.js
@@ -364,15 +362,15 @@ SideBar.defaultProps = {
 };
 ```
 
-However, if you were to just do this, you would see no improvment in your network performance, and every time you loaded a new post you'd have to make a new network request. To benefit from this preloading we have to tell the `ApolloClient` a few more things.
+However, if you were to just do this, you would see no improvement in your network performance, and every time you loaded a new post you'd have to make a new network request. To benefit from this preloading we have to tell the `ApolloClient` a few more things.
 
 ### Teach `Apollo` the shape of your data
-By default, `ApolloClient` assumes that every Object returned by your api is identifiable by a field called `id` or `_id`. In CosmicJS, each object is identifiable by a field called `slug`.
+By default, `ApolloClient` assumes that every Object returned by your API is identifiable by a field called `id` or `_id`. In CosmicJS, each object is identifiable by a field called `slug`.
 
 Telling Apollo about this is simple:
 
 ```javascript
-import { ApolloClient, createNetworkInterface, } from "react-Apollo";
+import { ApolloClient, createNetworkInterface, } from "react-apollo";
 import { toIdValue, } from "Apollo-client";
 
 // ------------------------------
@@ -407,15 +405,15 @@ The function `dataIdFromObject` tells `ApolloClient` how to generate a unique ID
 
 The object `customResolvers` tells `ApolloClient` that whenever we make an `object` query, we can try looking in the cache using the query variable `slug`.
 
-Now oursidebar preloads all posts using `getAllPostsWithExtraQuery`, and any future calls to get Post data will be served by `ApolloClient`'s cache, instead of the network.
+Now our sidebar preloads all posts using `getAllPostsWithExtraQuery`, and any future calls to get Post data will be served by `ApolloClient`'s cache, instead of the network.
 
 ### Load GraphQL queries with webpack
 
 Finally, Apollo provides us with another nifty technique to improve the developer experience.
 
-If you're using `webpack` as part of your build system you can keep all your GraphQL queries and mutations in seperate files, and import them into javascript like any other file. This only only means to can benefit from compartmentalised code & syntax hilighting, it also means that webpack can pre-compile your GraphQL queries into Apollo's own interlal representation at build time, rather than in your user's browser.
+If you're using `webpack` as part of your build system you can keep all your GraphQL queries and mutations in seperate files, and import them into javascript like any other file. This only only means to can benefit from compartmentalised code & syntax highlighting, it also means that webpack can pre-compile your GraphQL queries into Apollo's own internal representation at build time, rather than in your user's browser.
 
-Intergrating the GraphQL loader into webpack is easy, you just have to include the following code in your webpack config: 
+Integrating the GraphQL loader into webpack is easy, you just have to include the following code in your webpack config: 
 
 ```javascript
 module: {
@@ -432,4 +430,4 @@ module: {
 ## Conclusion:
 Now you know some of the tips, tricks, and techniques we've learnt from using React and GraphQL in several production apps; if you've learnt something, why not [share](https://twitter.com/intent/tweet?text=Building a GraphQL React app: https://cosmicjs.com/blog) 
 
-If you're making a static site, or anything else, with Cosmic JS get in touch on out Slack or Twitter; we'd love to see what you're making. This post was written by [Codogo](https://codogo.io), a fresh new digital agency with a passion for creating amazing digital experiences. Keep an eye out for our next post, on best practice for making a Cosmic JS site using React and GraphQL.
+If you're making a static site, or anything else, with CosmicJS get in touch on out Slack or Twitter; we'd love to see what you're making. This post was written by [Codogo](https://codogo.io), a fresh new digital agency with a passion for creating amazing digital experiences. Keep an eye out for our next post, on best practice for making a CosmicJS site using React and GraphQL.
