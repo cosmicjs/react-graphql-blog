@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql, } from "react-apollo";
 import styled, { keyframes, } from "styled-components";
+import { Helmet, } from "react-helmet";
 
 import { getPostQuery, } from "../graphql";
 import config from "../../config";
@@ -65,7 +66,15 @@ const Loading = () => (
 
 const Post = props => (
 	<PostInner>
+		<Helmet>
+			<title>
+				{props.title}
+			</title>
+		</Helmet>
+
 		<PostImage src = { props.hero } />
+
+		{props.noShare ? null : <Share />}
 
 		<PostTitle>
 			{props.title}
@@ -76,8 +85,6 @@ const Post = props => (
 				__html: props.content,
 			} }
 		/>
-
-		<Share />
 	</PostInner>
 );
 
@@ -86,6 +93,7 @@ const PostWrapper = graphql(getPostQuery)(props => (
 		{props.data.loading || props.blank
 			? <Loading />
 			: <Post
+				noShare = { props.noShare }
 				hero = { R.path([
 					"data",
 					"object",
@@ -108,8 +116,8 @@ export default props => (
 	<PostWrapper postSlug = { R.path(["match", "params", "postSlug",])(props) } />
 );
 
-export const Home = () => <PostWrapper postSlug = "home" />;
+export const Home = () => <PostWrapper noShare postSlug = "home" />;
 
-export const FourOhFour = () => <PostWrapper postSlug = "404" />;
+export const FourOhFour = () => <PostWrapper noShare postSlug = "404" />;
 
-export const Blank = () => <PostWrapper blank postSlug = "home" />;
+export const Blank = () => <PostWrapper blank noShare postSlug = "home" />;

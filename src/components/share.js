@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const SocialContainer = styled.div`
-	top: 50px;
-	left: 50px;
-	position: absolute;
+	flex-direction: row;
+	justify-content: space-around;
 `;
 
 const SocialLink = styled.a`
@@ -24,8 +23,6 @@ const SocialLink = styled.a`
 
 export default () => (
 	<SocialContainer>
-		<p>SHARE</p>
-
 		<SocialLink
 			href = { `http://www.facebook.com/sharer.php?t=${encodeURI(document.title)}&u=${encodeURI(window.location.href)}` }
 			target = "_blank"

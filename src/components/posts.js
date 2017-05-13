@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Route, Switch, } from "react-router";
+import { Helmet, } from "react-helmet";
 
 import Post, { Blank, Home, FourOhFour, } from "./post";
 import SideBar from "./sidebar";
@@ -11,6 +12,11 @@ const PostsStyled = styled.div`
 
 export default () => (
 	<PostsStyled>
+
+		<Helmet>
+			<title>Blog Posts</title>
+		</Helmet>
+
 		<Route path = "/post" component = { SideBar } />
 
 		<Switch>
