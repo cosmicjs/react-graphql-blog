@@ -29,6 +29,7 @@ injectGlobal`
 		align-self: stretch;
 		flex: 1;
 		min-height: 100%;
+		height: 100vh;
 	}
 
 	div {

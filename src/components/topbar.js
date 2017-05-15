@@ -2,17 +2,14 @@ import styled, { css, } from "styled-components";
 import { Link, } from "react-router-dom";
 
 const TopbarStyled = styled.div`
+	align-items: center;
 	background-color: ${R.path(["theme", "blue",])};
 	flex-direction: row;
 	justify-content: space-between;
-	align-items: flex-end;
-	padding: 4px;
+	padding: 1em 3em;
+	position: fixed;
+	width: 100%;
 	z-index: 3;
-`;
-
-const BlogName = styled.div`
-	font-size: 2em;
-	color: ${R.path(["theme", "white",])};
 `;
 
 const BlogLinks = styled.div`
@@ -20,30 +17,37 @@ const BlogLinks = styled.div`
 `;
 
 const LinkCSS = css`
-	font-size: 1.5em;
 	color: ${R.path(["theme", "white",])};
-	margin: 4px;
 	text-decoration: none;
+	text-transform: uppercase;
+
+	&:hover {
+		color: ${R.path(["theme", "lightgray",])};
+	}
+`;
+
+const BlogName = styled(Link)`
+	font-size: 1.2em;
+	${LinkCSS}
 `;
 
 const BlogLink = styled(Link)`
 	${LinkCSS}
+	margin-left: 2em;
 `;
 
 const CosmicLink = styled.a`
 	${LinkCSS}
+	margin-left: 2em;
 `;
 
 export default () => (
 	<TopbarStyled>
-		<BlogName>
-			Blogname
+		<BlogName to = "/">
+			Demo Blog
 		</BlogName>
 
 		<BlogLinks>
-			<BlogLink to = "/">
-				Home
-			</BlogLink>
 
 			<BlogLink to = "/post/">
 				Blog

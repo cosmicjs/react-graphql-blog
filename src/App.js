@@ -14,11 +14,13 @@ import theme from "./theme";
 const RootStyled = styled.div`
 	flex: 1;
 	align-items: stretch;
+	height: 100vh;
 `;
 
 const Root = () => (
 	<RootStyled>
 		<Topbar />
+
 		<Posts />
 	</RootStyled>
 );

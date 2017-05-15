@@ -16,7 +16,7 @@ const PostContainerStyled = styled.div`
 	align-items: center;
 	flex: 7;
 	padding: 8px;
-	height: 100vh;
+	height: 100%;
 	overflow: scroll;
 `;
 

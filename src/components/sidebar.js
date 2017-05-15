@@ -29,7 +29,7 @@ const SideBarStyled = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 2;
-	height: 100vh;
+	height: 100%;
 	max-width: 300px;
 	min-width: 150px;
 	padding: 1em;
@@ -37,7 +37,7 @@ const SideBarStyled = styled.div`
 `;
 
 const SideBarStyling = css`
-	margin: 2px;
+	margin: .5em;
 	text-decoration: none;
 	color: ${R.path(["theme", "lightgray",])};
 
@@ -55,9 +55,9 @@ const SideBarStyling = css`
 `;
 
 const SideBarText = styled.p`
-	${SideBarStyling}
 	font-size: 1.5em;
-	color: ${R.path(["theme", "white",])};
+	margin: .5em 0;
+	color: ${R.path(["theme", "darkBlue",])};
 `;
 
 const PostLinkStyled = styled(NavLink)`
@@ -70,14 +70,14 @@ const PostLinkStyled = styled(NavLink)`
 const PostTitle = styled.p`
 	font-size: 1.2em;
 	margin: -0.1em;
+	max-width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	max-width: 100%;
 `;
 
 const PostDate = styled.div`
-	font-size: 1em;
+	font-size: 0.8em;
 	align-self: flex-end;
 	margin: 2px;
 `;
@@ -85,6 +85,7 @@ const PostDate = styled.div`
 const Nav = styled.div`
 	align-self: stretch;
 	flex: 1;
+
 `;
 
 const Credit = styled.div`
@@ -96,7 +97,7 @@ const Credit = styled.div`
 		color: ${R.path(["theme", "white",])};
 
 		&:hover {
-			color: ${R.path(["theme", "darkBlueLight",])};
+			color: ${R.path(["theme", "lightgray",])};
 		}
 	}
 `;
@@ -108,23 +109,23 @@ const LoadingContainer = styled.div`
 `;
 
 const LoadingTitle = styled.div`
-	border-radius: 1.6em;
+	border-radius: .2em;
 	height: 1.2em;
 	animation: ${Shine} 1s linear infinite;
 	width: 70%;
 `;
 
 const LoadingDate = styled.div`
-	border-radius: 0.5em;
-	margin: 2px;
-	height: 1em;
-	animation: ${Shine} 1s linear infinite;
 	align-self: flex-end;
-	width: 50%;
+	animation: ${Shine} 1s linear infinite;
+	border-radius: 0.2em;
+	height: 0.8em;
+	margin: 2px;
+	width: 30%;
 `;
 
 const Line = styled.div`
-	background-color: ${R.path(["theme", "white",])}
+	background-color: ${R.path(["theme", "darkBlue",])}
 	height: 1px;
 	margin: 4px 0;
 `;
@@ -163,17 +164,18 @@ const SideBar = compose(
 	<SideBarStyled>
 		<Nav>
 			<SideBarText>
-				Posts
+				Recent Posts
 			</SideBarText>
 
 			<Line />
 
-			{props.allPosts.loading
+			{
+				props.allPosts.loading
 				? <Loading />
 				: props.allPosts.objects.map(({ slug, ...rest }) => (
 					<PostLink key = { slug } slug = { slug } { ...rest } />
-					))}
-
+				)).reverse()
+			}
 		</Nav>
 
 		<Credit>
