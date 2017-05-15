@@ -18,7 +18,7 @@ export default () => (
 			<title>Blog Posts</title>
 		</Helmet>
 
-		<Route path = "/post" component = { SideBar } />
+		<Route path = "/post/:postSlug?" component = { SideBar } />
 
 		<Switch>
 			<Route path = "/post/:postSlug" component = { Post } />

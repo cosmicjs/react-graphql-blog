@@ -31,11 +31,13 @@ const SideBarStyled = styled.div`
 	flex-direction: column;
 	flex: 2;
 	height: 100%;
-	max-width: 300px;
+	max-width: ${ ({ fullScreen, }) => fullScreen ? "100vw" : "300px" };
 	min-width: 150px;
 	padding: 1em;
 	z-index: 2;
-	${ mixins.bp.sm.max`display: none;`};
+	${ mixins.bp.sm.max`
+		${ ({ fullScreen, }) => fullScreen ? "" : "display: none;" }
+	`};
 	${ mixins.shadow(1) };
 `;
 
@@ -87,7 +89,6 @@ const PostDate = styled.div`
 const Nav = styled.div`
 	align-self: stretch;
 	flex: 1;
-
 `;
 
 const Credit = styled.div`
@@ -108,6 +109,7 @@ const LoadingContainer = styled.div`
 	align-self: stretch;
 	align-items: stretch;
 	flex: 1;
+	max-width: 400px;
 `;
 
 const LoadingTitle = styled.div`
@@ -162,7 +164,7 @@ const SideBar = compose(
 	graphql(getAllPostsQuery, { name: "allPosts", }),
 	graphql(getAllPostsWithExtraQuery, { name: "allPostsPreFetch", }),
 )(props => (
-	<SideBarStyled>
+	<SideBarStyled fullScreen = { !props.match.params.postSlug } >
 		<Nav>
 			<SideBarText>
 				Recent Posts

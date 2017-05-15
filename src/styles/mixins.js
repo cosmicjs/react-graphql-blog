@@ -1,7 +1,7 @@
 // Mixins by Josh Dronsfield @dronz_
 
-import styled, { css, } from "styled-components";
-import * as vars from "./vars";
+import { css, } from "styled-components";
+import theme from "./theme";
 
 // --------------------------------------------------
 
@@ -13,7 +13,7 @@ const objMap = (obj, cb) => Object.keys(obj).reduce((acc, key) => ({
 // --------------------------------------------------
 // Breakpoints
 
-export const bp = objMap(vars.bps, (key, val) => ({
+export const bp = objMap(theme.bps, (key, val) => ({
 	min: (...cont) => css`
 		@media (min-width: ${val.min}px) {
 			${css(...cont)}

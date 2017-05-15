@@ -17,7 +17,7 @@ const PostContainerStyled = styled.div`
 	flex: 7;
 	padding: 8px;
 	height: 100%;
-	overflow: scroll;
+	overflow-y: scroll;
 `;
 
 const fadeIn = keyframes`
@@ -128,4 +128,4 @@ export const Home = () => <PostWrapper noShare postSlug = "home" />;
 
 export const FourOhFour = () => <PostWrapper noShare postSlug = "404" />;
 
-export const Blank = () => <PostWrapper blank noShare postSlug = "home" />;
+export const Blank = () => null;
