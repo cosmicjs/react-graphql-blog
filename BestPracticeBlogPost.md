@@ -1,4 +1,4 @@
-# Building a GraphQL React app
+# How to Build a React website powered by the Cosmic JS GraphQL API
 Building and maintaining a React app can be no mean feat. There plenty of tutorials out there covering the technical aspects of making a React app, but as with any technology, it's often hard to find information on best practices.
 
 In this post we'll be exploring some tips, tricks, and techniques we've learnt whilst producing React/GraphQL apps for our clients. Hopefully these will help you make your project more performant and simplify maintenance.
