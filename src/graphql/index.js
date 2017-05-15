@@ -19,7 +19,7 @@ const customResolvers = {
 };
 
 const client = new ApolloClient({
-	networkInterface: networkInterface,
+	networkInterface,
 	dataIdFromObject,
 	customResolvers,
 });
