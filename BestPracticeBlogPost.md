@@ -1,22 +1,22 @@
 # Building a GraphQL React app
-Building and maintaining a React app can be no mean feat. There are a lot of tutorials out there that explain the technical aspects of making a react app, but as with any technologies it's often hard to find information on best practice.
+Building and maintaining a React app can be no mean feat. There plenty of tutorials out there covering the technical aspects of making a React app, but as with any technology, it's often hard to find information on best practices.
 
-In this post we'll be exploring some tips, tricks, and techniques we've learnt from producing several different React/GraphQL apps, that you can use to make your project not only performant but also easy to manage.
+In this post we'll be exploring some tips, tricks, and techniques we've learnt whilst producing React/GraphQL apps for our clients. Hopefully these will help you make your project more performant and simplify maintenance.
 
 <!-- vim-markdown-toc GFM -->
 * [React](#react)
-   * [You probably don't need state](#you-probably-dont-need-state)
-   * [Use routing to store your view information](#use-routing-to-store-your-view-information)
-   * [Styled-Components and ThemeProvider stay on top of your styles](#styled-components-and-themeprovider-stay-on-top-of-your-styles)
+   - [You probably don't need state](#you-probably-dont-need-state)
+   - [Use routing to store your view information](#use-routing-to-store-your-view-information)
+   - [Styled-Components and ThemeProvider stay on top of your styles](#styled-components-and-themeprovider-stay-on-top-of-your-styles)
 * [GraphQL](#graphql)
-   * [Setting up the CosmicJS GraphQL API](#setting-up-the-cosmicjs-graphql-api)
-   * [Reuse Data with `Fragments`](#reuse-data-with-fragments)
-   * [Use Component props as query parameters.](#use-component-props-as-query-parameters)
-      * [Default Props](#default-props)
-      * [Dynamic Props](#dynamic-props)
-   * [Preloading Data](#preloading-data)
-   * [Teach `Apollo` the shape of your data](#teach-apollo-the-shape-of-your-data)
-   * [Load GraphQL queries with webpack](#load-graphql-queries-with-webpack)
+   - [Setting up the CosmicJS GraphQL API](#setting-up-the-cosmicjs-graphql-api)
+   - [Reuse Data with `Fragments`](#reuse-data-with-fragments)
+   - [Use Component props as query parameters.](#use-component-props-as-query-parameters)
+      + [Default Props](#default-props)
+      + [Dynamic Props](#dynamic-props)
+   - [Preloading Data](#preloading-data)
+   - [Teach `Apollo` the shape of your data](#teach-apollo-the-shape-of-your-data)
+   - [Load GraphQL queries with webpack](#load-graphql-queries-with-webpack)
 * [Conclusion:](#conclusion)
 
 <!-- vim-markdown-toc -->
@@ -24,16 +24,16 @@ In this post we'll be exploring some tips, tricks, and techniques we've learnt f
 ## React
 
 ### You probably don't need state
-If you've been using React for a while, your first instinct when starting a new project might be to set up a state management library like [redux](https://github.com/reactjs/redux), [MobX](https://github.com/mobxjs/mobx), or [freactal](https://github.com/FormidableLabs/freactal). These are really powerful solutions for state management, that can make wrestling with the state of a large application much more manageable.
+If you've been using React for a while, your first instinct when starting a new project might be to set up a state management library like [Redux](https://github.com/reactjs/redux), [MobX](https://github.com/mobxjs/mobx), or [freactal](https://github.com/FormidableLabs/freactal). These are really powerful solutions for state management, that can make wrestling with the state of a large application much more manageable.
 
 But, like any library, you shouldn't start using these state management solutions until you actually need to! For a simple blog like the one we'll be building today the only state you actually need is the current URL.
 
-"But!" I hear you cry "How will I store/cache/handle the API first data I'm fetching over the network, from a great service like [CosmicJS](https://cosmicjs.com/)?". Well worry not! In the second half of this post we're going to explore [GraphQL](http://GraphQL.org/), a system for declaratively fetching data from a server and specifically the [Apollo](https://www.Apollodata.com/) GraphQL client for simply interfacing with GraphQL.
+_"But!"_ I hear you cry _"How will I store/cache/handle the API-first data I'm fetching over the network, from a great service like [CosmicJS](https://cosmicjs.com/)?"_. Well worry not! In the second half of this post we're going to explore [GraphQL](http://GraphQL.org/), a system for declaratively fetching data from a server and specifically the [Apollo](https://www.Apollodata.com/) GraphQL client for simply interfacing with GraphQL.
 
-We're focusing on a simple, view only app in this post, but it's worth mentioning that the `state` provided by class based React components is often sufficient for bits of state that only affect a localised part of your app. Dan Abramov (creator of redux) has written in more detail about this subject [here](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)
+We're focusing on a simple, view only app in this post, but it's worth mentioning that the `state` provided by class based React components is often sufficient for bits of state that only affect a localised part of your app. Dan Abramov (creator of Redux) has written in more detail about this subject [here](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)
 
 ### Use routing to store your view information
-Of course, if we don't have _some_ state, we'll just be displaying our whole web app all at once. Luckily, your browser provides a built in state store with undo history, frictionless sharing, and a simple interface: your URL bar.
+Of course, if we don't have _some_ state, we'd just be displaying our whole web app all at once. Luckily, your browser provides a built in state store with undo history, frictionless sharing, and a simple interface: your URL bar.
 
 The excellent [React Router](https://reacttraining.com/react-router/) library provides a simple and expressive interface for navigating around your app. Most of the routing in our example app is handled in the following file:
 
@@ -67,7 +67,7 @@ export default () => (
 );
 ```
 
-The first `Route` renders the side bar if we're at any url that begins with `/post`
+The first `Route` renders the sidebar for any URL beginning with `/post`
 
 The `Switch` component renders the first of its children with a matching `path`. Our routing configuration does the following:
 
@@ -81,7 +81,7 @@ All this together means we can simply switch between all the different views of 
 React Router provides a `Link` component, that acts like a supercharged `<a>` tag. You should use `Link` for any hyperlinks that don't lead out of your website.
 
 ### Styled-Components and ThemeProvider stay on top of your styles
-CSS precompilers like `SASS` first enabled web developers to start using variables and functions in their styles. Then react came along and popularised the inline style system: 
+CSS precompilers like `SASS` first enabled web developers to start using variables and functions in their styles. Then React came along and popularised the inline style system: 
 
 ```javascript
 <div
@@ -94,7 +94,7 @@ CSS precompilers like `SASS` first enabled web developers to start using variabl
 />
 ```
 
-The hottest new trend is [Styled Components](https://github.com/styled-components/styled-components), which allows you to create new components by specifying a component, and the CSS styles you'd like to apply to it. These styles are automatically vendor prefixed, and all get converted to a style sheet in the end.
+The hottest new trend is [Styled Components](https://github.com/styled-components/styled-components), which allows you to create new components by specifying a component, and the CSS styles you'd like to apply to it. These styles are automatically vendor-prefixed, and are all converted to a stylesheet in the end.
 
 ```javascript
 const Link = styled.a`
@@ -129,7 +129,7 @@ const Link = styled.a`
 `
 ```
 
-The `theme` object can be any javascript object, and the function inside the `${ }` block can be any function, so there's a huge range of cool stuff you can do in your styled components while still keeping all your variables in 1 unified place.
+The `theme` object can be any javascript object, and the function inside the `${ }` block can be any function, so there's a huge range of cool stuff you can do in your styled components while still keeping all your variables in one unified place.
 
 ## GraphQL
 GraphQL is a _declarative_, _self documenting_ API specification that allows you to ask your API only for the data you need. It imposes a few restrictions and ideas on your API, that allows a `GraphQL Client` to create some really cool features, including:
@@ -149,7 +149,7 @@ The GraphQL API provided by CosmicJS has 3 queries:
 And those queries are documented in full [here](https://cosmicjs.com/docs/GraphQL).
 
 ### Setting up the CosmicJS GraphQL API
-First we need to setup our `ApolloClient`:
+First we need to set up our `ApolloClient`:
 
 ```javascript
 //src/GraphQL/index.js
@@ -189,12 +189,12 @@ export default () => (
 
 The Apollo provider means that any component in our app can connect itself to a GraphQL query, meaning each component can ask the client to fetch exactly the data needed to render itself. Don't worry about multiple components spamming the server with requests; the `ApolloClient` handles caching and de-duplication itself!
 
-We'll now spend a little time exploring some methods you can use to make GraphQL a little nicer to use, before we start exploring how we've used it in this app. We're not including all the code nesciray to run the example in this blog post, but you can find the source code [here](https://bitbucket.org/codogo/cosmic-js-best-practice-blog-post) to follow along.
+We'll now spend a little time exploring some methods you can use to make GraphQL a little nicer to use, before we start exploring how we've used it in this app. We're not including all the code necessary to run the example in this blog post, but you can find the source code for our demo project [here](https://bitbucket.org/codogo/cosmic-js-best-practice-blog-post). Follow along!
 
 ### Reuse Data with `Fragments`
 Sometimes you want to get the same fields from an object in two different queries, GraphQL provides a system to do this in the form of `Fragments`. `Fragments` allow you to pick some fields from an object, and ask for only those fields.
 
-For example, in the Sidebar we only want some basic information about a post:
+For example, in the sidebar we only want some basic information about a post:
 
 ```
 fragment PostPreview on Object {
@@ -428,6 +428,8 @@ module: {
 ```
 
 ## Conclusion:
-Now you know some of the tips, tricks, and techniques we've learnt from using React and GraphQL in several production apps; if you've learnt something, why not [share](https://twitter.com/intent/tweet?text=Building a GraphQL React app: https://cosmicjs.com/blog) 
+Now you know some of the tips, tricks, and techniques we've learnt from using React and GraphQL in production apps. If you've learnt something, please [share this article](https://twitter.com/intent/tweet?text=Building a GraphQL React app: https://cosmicjs.com/blog)!
 
-If you're making a static site, or anything else, with CosmicJS get in touch on out Slack or Twitter; we'd love to see what you're making. This post was written by [Codogo](https://codogo.io), a fresh new digital agency with a passion for creating amazing digital experiences. Keep an eye out for our next post, on best practice for making a CosmicJS site using React and GraphQL.
+If you're making a static site, or anything else, with CosmicJS get in touch on our Slack or Twitter, we'd love to see what you're making. 
+
+This post was written by [Codogo](https://consulting.codogo.io), an award-winning digital agency with a passion for creating amazing digital experiences. Keep an eye out for our next post, on best practice for making a CosmicJS site using React and GraphQL.

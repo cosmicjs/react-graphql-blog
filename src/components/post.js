@@ -16,8 +16,8 @@ const PostContainerStyled = styled.div`
 	align-items: center;
 	flex: 7;
 	padding: 8px;
-	height: 100vh;
-	overflow: scroll;
+	height: 100%;
+	overflow-y: scroll;
 `;
 
 const fadeIn = keyframes`
@@ -36,8 +36,8 @@ const PostInner = styled.div`
 	text-align: left;
 	width: 100%;
 	padding: 2em 1em;
-   display: block;
-   animation: ${fadeIn} 1s ;
+	display: block;
+	animation: ${fadeIn} 1s;
 `;
 
 const PostImage = styled.img`
@@ -68,16 +68,14 @@ const Post = props => (
 	<PostInner>
 		<Helmet>
 			<title>
-				{props.title}
+				{ props.title }
 			</title>
 		</Helmet>
 
 		<PostImage src = { props.hero } />
 
-		{props.noShare ? null : <Share />}
-
 		<PostTitle>
-			{props.title}
+			{ props.title }
 		</PostTitle>
 
 		<PostContents
@@ -85,12 +83,19 @@ const Post = props => (
 				__html: props.content,
 			} }
 		/>
+
+		{ 
+			props.noShare 
+			? null 
+			: <Share />
+		}
 	</PostInner>
 );
 
 const PostWrapper = graphql(getPostQuery)(props => (
 	<PostContainerStyled>
-		{props.data.loading || props.blank
+		{
+			props.data.loading || props.blank
 			? <Loading />
 			: <Post
 				noShare = { props.noShare }
@@ -103,7 +108,8 @@ const PostWrapper = graphql(getPostQuery)(props => (
 				])(props) }
 				title = { R.path(["data", "object", "title",])(props) }
 				content = { R.path(["data", "object", "content",])(props) }
-				/>}
+			/>
+		}
 	</PostContainerStyled>
 ));
 
@@ -111,6 +117,8 @@ PostWrapper.defaultProps = {
 	bucketSlug: config.bucket.slug,
 	readKey: config.bucket["read_key"],
 };
+
+// ------------------------------
 
 export default props => (
 	<PostWrapper postSlug = { R.path(["match", "params", "postSlug",])(props) } />
@@ -120,4 +128,4 @@ export const Home = () => <PostWrapper noShare postSlug = "home" />;
 
 export const FourOhFour = () => <PostWrapper noShare postSlug = "404" />;
 
-export const Blank = () => <PostWrapper blank noShare postSlug = "home" />;
+export const Blank = () => null;

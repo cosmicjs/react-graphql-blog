@@ -3,7 +3,8 @@ import styled from "styled-components";
 
 const SocialContainer = styled.div`
 	flex-direction: row;
-	justify-content: space-around;
+	border-top: 1px solid black;
+	padding-top: 1em;
 `;
 
 const SocialLink = styled.a`
@@ -23,6 +24,10 @@ const SocialLink = styled.a`
 
 export default () => (
 	<SocialContainer>
+		<div>If you enjoyed this article, please share it with someone you think might enjoy it!</div>
+
+		<br />
+
 		<SocialLink
 			href = { `http://www.facebook.com/sharer.php?t=${encodeURI(document.title)}&u=${encodeURI(window.location.href)}` }
 			target = "_blank"
