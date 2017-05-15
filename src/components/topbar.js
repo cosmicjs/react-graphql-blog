@@ -1,5 +1,8 @@
 import styled, { css, } from "styled-components";
 import { Link, } from "react-router-dom";
+import * as mixins from "../styles/mixins.js";
+
+// ------------------------------
 
 const TopbarStyled = styled.div`
 	align-items: center;
@@ -10,6 +13,7 @@ const TopbarStyled = styled.div`
 	position: fixed;
 	width: 100%;
 	z-index: 3;
+	${ mixins.shadow(1) };
 `;
 
 const BlogLinks = styled.div`
@@ -41,6 +45,8 @@ const CosmicLink = styled.a`
 	margin-left: 2em;
 `;
 
+// ------------------------------
+
 export default () => (
 	<TopbarStyled>
 		<BlogName to = "/">
@@ -53,7 +59,10 @@ export default () => (
 				Blog
 			</BlogLink>
 
-			<CosmicLink href = "https://cosmicjs.com">
+			<CosmicLink 
+				href = "https://cosmicjs.com"
+				target = "_blank"
+			>
 				CosmicJS
 			</CosmicLink>
 		</BlogLinks>

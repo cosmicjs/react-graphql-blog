@@ -6,6 +6,7 @@ import { compose, graphql, } from "react-apollo";
 
 import { getAllPostsWithExtraQuery, getAllPostsQuery, } from "../graphql";
 import config from "../../config";
+import * as mixins from "../styles/mixins.js";
 
 // ------------------------------
 
@@ -34,6 +35,8 @@ const SideBarStyled = styled.div`
 	min-width: 150px;
 	padding: 1em;
 	z-index: 2;
+	${ mixins.bp.sm.max`display: none;`};
+	${ mixins.shadow(1) };
 `;
 
 const SideBarStyling = css`
@@ -78,8 +81,7 @@ const PostTitle = styled.p`
 
 const PostDate = styled.div`
 	font-size: 0.8em;
-	align-self: flex-end;
-	margin: 2px;
+	margin-top: 2px;
 `;
 
 const Nav = styled.div`
@@ -116,12 +118,11 @@ const LoadingTitle = styled.div`
 `;
 
 const LoadingDate = styled.div`
-	align-self: flex-end;
 	animation: ${Shine} 1s linear infinite;
 	border-radius: 0.2em;
 	height: 0.8em;
-	margin: 2px;
 	width: 30%;
+	margin-top: 2px;
 `;
 
 const Line = styled.div`

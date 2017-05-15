@@ -7,7 +7,7 @@ import client from "./graphql";
 
 import Topbar from "./components/topbar";
 import Posts from "./components/posts";
-import theme from "./theme";
+import theme from "./styles/theme";
 
 // ------------------------------
 

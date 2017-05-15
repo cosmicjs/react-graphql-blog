@@ -6,3 +6,4 @@ export default {
 	darkBlue: "#005063",
 	darkBlueLight: "#007392",
 };
+
