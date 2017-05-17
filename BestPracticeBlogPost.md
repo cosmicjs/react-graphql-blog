@@ -4,19 +4,20 @@ Building and maintaining a React app can be no mean feat. There plenty of tutori
 In this post we'll be exploring some tips, tricks, and techniques we've learnt whilst producing React/GraphQL apps for our clients. Hopefully these will help you make your project more performant and simplify maintenance.
 
 <!-- vim-markdown-toc GFM -->
+
 * [React](#react)
-   - [You probably don't need state](#you-probably-dont-need-state)
-   - [Use routing to store your view information](#use-routing-to-store-your-view-information)
-   - [Styled-Components and ThemeProvider stay on top of your styles](#styled-components-and-themeprovider-stay-on-top-of-your-styles)
+   * [You probably don't need state](#you-probably-dont-need-state)
+   * [Use routing to store your view information](#use-routing-to-store-your-view-information)
+   * [Styled-Components and ThemeProvider stay on top of your styles](#styled-components-and-themeprovider-stay-on-top-of-your-styles)
 * [GraphQL](#graphql)
-   - [Setting up the CosmicJS GraphQL API](#setting-up-the-cosmicjs-graphql-api)
-   - [Reuse Data with `Fragments`](#reuse-data-with-fragments)
-   - [Use Component props as query parameters.](#use-component-props-as-query-parameters)
-      + [Default Props](#default-props)
-      + [Dynamic Props](#dynamic-props)
-   - [Preloading Data](#preloading-data)
-   - [Teach `Apollo` the shape of your data](#teach-apollo-the-shape-of-your-data)
-   - [Load GraphQL queries with webpack](#load-graphql-queries-with-webpack)
+   * [Setting up the CosmicJS GraphQL API](#setting-up-the-cosmicjs-graphql-api)
+   * [Reuse Data with `Fragments`](#reuse-data-with-fragments)
+   * [Use Component props as query parameters.](#use-component-props-as-query-parameters)
+      * [Default Props](#default-props)
+      * [Dynamic Props](#dynamic-props)
+   * [Preloading Data](#preloading-data)
+   * [Teach `Apollo` the shape of your data](#teach-apollo-the-shape-of-your-data)
+   * [Load GraphQL queries with webpack](#load-graphql-queries-with-webpack)
 * [Conclusion:](#conclusion)
 
 <!-- vim-markdown-toc -->
@@ -432,4 +433,4 @@ Now you know some of the tips, tricks, and techniques we've learnt from using Re
 
 If you're making a static site, or anything else, with CosmicJS get in touch on our Slack or Twitter, we'd love to see what you're making. 
 
-This post was written by [Codogo](https://consulting.codogo.io), an award-winning digital agency with a passion for creating amazing digital experiences. Keep an eye out for our next post, on best practice for making a CosmicJS site using React and GraphQL.
+This post was written by [Codogo](https://consulting.codogo.io), an award-winning digital agency with a passion for creating amazing digital experiences.
