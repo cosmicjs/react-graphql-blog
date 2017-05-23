@@ -9,8 +9,10 @@ const TopbarStyled = styled.div`
 	background-color: ${R.path(["theme", "blue",])};
 	flex-direction: row;
 	justify-content: space-between;
+	left: 0;
 	padding: 1em 3em;
 	position: fixed;
+	top: 0;
 	width: 100%;
 	z-index: 3;
 	${ mixins.shadow(1) };

@@ -4,6 +4,8 @@ import { NavLink, } from "react-router-dom";
 import styled, { css, keyframes, } from "styled-components";
 import { compose, graphql, } from "react-apollo";
 
+import postIcon from "../img/postIcon.svg";
+
 import { getAllPostsWithExtraQuery, getAllPostsQuery, } from "../graphql";
 import config from "../../config";
 import * as mixins from "../styles/mixins.js";
@@ -28,16 +30,19 @@ const SideBarStyled = styled.div`
 	align-items: left;
 	background-color: ${R.path(["theme", "darkBlueLight",])};
 	display: flex;
-	flex-direction: column;
 	flex: 2;
+	flex-direction: column;
 	height: 100%;
 	max-width: ${ ({ fullScreen, }) => fullScreen ? "100vw" : "300px" };
 	min-width: 150px;
+	overflow: hidden;	
 	padding: 1em;
 	z-index: 2;
+
 	${ mixins.bp.sm.max`
 		${ ({ fullScreen, }) => fullScreen ? "" : "display: none;" }
 	`};
+
 	${ mixins.shadow(1) };
 `;
 
@@ -59,23 +64,26 @@ const SideBarStyling = css`
 	}
 `;
 
+const SideBarTextContainer = styled.div`
+	max-width: 100%;	
+`;
+
 const SideBarText = styled.p`
+	color: ${R.path(["theme", "white",])};
 	font-size: 1.5em;
 	margin: .5em 0;
-	color: ${R.path(["theme", "darkBlue",])};
 `;
 
 const PostLinkStyled = styled(NavLink)`
 	${SideBarStyling}
 	display: flex;
-	flex-direction: column;
-	margin: 0.5em;
+	flex-direction: row;
+	margin: 1em 0.5em;
 `;
 
 const PostTitle = styled.p`
 	font-size: 1.2em;
 	margin: -0.1em;
-	max-width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -84,6 +92,17 @@ const PostTitle = styled.p`
 const PostDate = styled.div`
 	font-size: 0.8em;
 	margin-top: 2px;
+`;
+
+const PostIcon = styled.div`
+	background-color: ${ R.path([ "theme", "white", ]) };
+	background-size: cover;
+	cursor: pointer;
+	height: 1.7em;
+	margin-right: 0.5em;
+	mask-image: url(${ postIcon });
+	width: 1.8em;
+	flex: 0 0 1.7em;
 `;
 
 const Nav = styled.div`
@@ -137,8 +156,10 @@ const Line = styled.div`
 
 const LoadingItem = () => (
 	<PostLinkStyled to = "/">
-		<LoadingTitle />
-		<LoadingDate />
+		<SideBarTextContainer>
+			<LoadingTitle />
+			<LoadingDate />
+		</SideBarTextContainer>
 	</PostLinkStyled>
 );
 
@@ -152,9 +173,13 @@ const Loading = () => (
 
 const PostLink = ({ title, modifiedAt, slug, }) => (
 	<PostLinkStyled to = { `/post/${slug}/` }>
-		<PostTitle>{title}</PostTitle>
+		<PostIcon  />
 
-		<PostDate> {moment(modifiedAt).fromNow()}</PostDate>
+		<SideBarTextContainer>
+			<PostTitle>{title}</PostTitle>
+
+			<PostDate> {moment(modifiedAt).fromNow()}</PostDate>
+		</SideBarTextContainer>
 	</PostLinkStyled>
 );
 
@@ -174,10 +199,10 @@ const SideBar = compose(
 
 			{
 				props.allPosts.loading
-				? <Loading />
-				: props.allPosts.objects.map(({ slug, ...rest }) => (
-					<PostLink key = { slug } slug = { slug } { ...rest } />
-				)).reverse()
+					? <Loading />
+					: props.allPosts.objects.map(({ slug, ...rest }) => (
+						<PostLink key = { slug } slug = { slug } { ...rest } />
+					)).reverse()
 			}
 		</Nav>
 

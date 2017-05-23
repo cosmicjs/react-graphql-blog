@@ -5,6 +5,7 @@ import { Helmet, } from "react-helmet";
 
 import { getPostQuery, } from "../graphql";
 import config from "../../config";
+import reactGQLLogo from "../img/1-RCeGDSIqqW68bS5kYucTvA.png";
 
 import LoadingLogo from "./loadingLogo";
 import Share from "./share";
@@ -46,7 +47,7 @@ const PostImage = styled.img`
 `;
 
 const PostTitle = styled.h1`
-
+	margin: 0;
 `;
 
 const PostContents = styled.div`
@@ -56,6 +57,33 @@ const LoadingContainer = styled.div`
 	flex: 1;
 	justify-content: center;
 	align-items: center;
+`;
+
+const FooterImage = styled.img`
+	height: auto;
+	max-width: 600px;
+	width: 100%;
+`;
+
+const AuthorContainer = styled.div`
+	align-self: flex-end;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0.5em 0;
+`;
+
+const AuthorName = styled.div`
+	font-size: 1.6em;
+	margin-bottom: -0.2em;
+`;
+
+const AuthorImage = styled.div`
+	background-image: url(${ R.prop("src") } );
+	background-size: cover;
+	border-radius: 50%;
+	height: 3em;
+	width: 3em;
 `;
 
 const Loading = () => (
@@ -72,44 +100,65 @@ const Post = props => (
 			</title>
 		</Helmet>
 
-		<PostImage src = { props.hero } />
+		<PostImage src = { props.hero } key = { props.hero }/>
 
 		<PostTitle>
 			{ props.title }
 		</PostTitle>
 
-		<PostContents
-			dangerouslySetInnerHTML = { {
-				__html: props.content,
-			} }
-		/>
+		<AuthorContainer>
 
-		{ 
-			props.noShare 
+			<AuthorImage src = { R.pipe(
+				R.propOr([], "metafields"),
+				R.find(R.propEq("key", "image"),),
+				R.defaultTo({}),
+				R.prop("imgix_url"),
+			)(props.author) }/>
+
+			<AuthorName>
+				{ props.author.title }
+			</AuthorName>
+
+	</AuthorContainer>
+
+	<hr />
+
+	<PostContents
+		dangerouslySetInnerHTML = { {
+			__html: props.content,
+		} }
+	/>
+
+	{ 
+		props.noShare 
 			? null 
 			: <Share />
-		}
-	</PostInner>
+	}
+</PostInner>
 );
 
 const PostWrapper = graphql(getPostQuery)(props => (
 	<PostContainerStyled>
 		{
 			props.data.loading || props.blank
-			? <Loading />
-			: <Post
-				noShare = { props.noShare }
-				hero = { R.path([
-					"data",
-					"object",
-					"metadata",
-					"hero",
-					"imgix_url",
-				])(props) }
-				title = { R.path(["data", "object", "title",])(props) }
-				content = { R.path(["data", "object", "content",])(props) }
-			/>
+				? <Loading />
+				: <Post
+					noShare = { props.noShare }
+					hero = { R.path([
+						"data",
+						"object",
+						"metadata",
+						"hero",
+						"imgix_url",
+					])(props) }
+					title = { R.path(["data", "object", "title",])(props) }
+					content = { R.path(["data", "object", "content",])(props) }
+					author = { R.path([ "data", "object", "metadata", "author", ])(props) }
+				/>
 		}
+
+		{ props.footerImage && <FooterImage src = { reactGQLLogo } /> }
+
 	</PostContainerStyled>
 ));
 
@@ -124,7 +173,7 @@ export default props => (
 	<PostWrapper postSlug = { R.path(["match", "params", "postSlug",])(props) } />
 );
 
-export const Home = () => <PostWrapper noShare postSlug = "home" />;
+export const Home = () => <PostWrapper noShare postSlug = "home" footerImage />
 
 export const FourOhFour = () => <PostWrapper noShare postSlug = "404" />;
 
