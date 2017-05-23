@@ -7,7 +7,7 @@ import { compose, graphql, } from "react-apollo";
 import postIcon from "../img/postIcon.svg";
 
 import { getAllPostsWithExtraQuery, getAllPostsQuery, } from "../graphql";
-import config from "../../config";
+import config from "../config";
 import * as mixins from "../styles/mixins.js";
 
 // ------------------------------

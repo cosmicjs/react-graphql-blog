@@ -4,7 +4,7 @@ import styled, { keyframes, } from "styled-components";
 import { Helmet, } from "react-helmet";
 
 import { getPostQuery, } from "../graphql";
-import config from "../../config";
+import config from "../config";
 import reactGQLLogo from "../img/1-RCeGDSIqqW68bS5kYucTvA.png";
 
 import LoadingLogo from "./loadingLogo";
