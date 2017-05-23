@@ -84,6 +84,7 @@ const AuthorImage = styled.div`
 	border-radius: 50%;
 	height: 3em;
 	width: 3em;
+	margin-right: 10px;
 `;
 
 const Loading = () => (
@@ -114,10 +115,12 @@ const Post = props => (
 				R.defaultTo({}),
 				R.prop("imgix_url"),
 			)(props.author) }/>
-
-			<AuthorName>
-				{ props.author.title }
-			</AuthorName>
+			{
+				props.author &&
+				<AuthorName>
+					{ props.author.title }
+				</AuthorName>
+			}
 
 	</AuthorContainer>
 

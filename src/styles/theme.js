@@ -16,7 +16,7 @@ export default {
 	lightgray: "#ddd",
 	gray: "#bbb",
 	blue: "#00afd7",
-	darkBlue: "#005063",
+	darkBlue: "#fff",
 	darkBlueLight: "#007392",
 
 	breakpoints,
