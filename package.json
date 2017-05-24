@@ -17,10 +17,10 @@
     "react-router-dom": "^4.1.1",
     "react-scripts": "^1.0.5",
     "styled-components": "^1.4.5",
-    "webpack-dev-server": "2.4.2"
+    "webpack-dev-server": "2.4.2",
+    "codogo-react-scripts": "^0.9.10"
   },
   "devDependencies": {
-    "codogo-react-scripts": "^0.9.10",
     "eslint": "^3.19.0"
   },
   "scripts": {
@@ -30,7 +30,7 @@
     "lint": "eslint --max-warnings 5 src",
     "prettier": "prettier --use-tabs --tab-width 4 --trailing-comma all --write \"src/**/*.js\"",
     "start-dev": "react-scripts start",
-    "start": "npm run build",
+    "start": "yarn; yarn build",
     "test": "react-scripts test --env=jsdom"
   }
 }
