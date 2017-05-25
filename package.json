@@ -25,7 +25,7 @@
     "eslint": "^3.19.0"
   },
   "scripts": {
-    "build": "react-scripts build",
+    "build": "react-scripts build; mv build www",
     "eject": "react-scripts eject",
     "format": "yarn run prettier && eslint --fix src",
     "lint": "eslint --max-warnings 5 src",
