@@ -6,6 +6,7 @@
     "extends": "codogo"
   },
   "dependencies": {
+    "codogo-react-scripts": "^0.9.13",
     "moment": "^2.18.1",
     "prettier": "^1.2.2",
     "ramda": "^0.23.0",

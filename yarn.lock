@@ -606,6 +606,10 @@ babel-plugin-syntax-exponentiation-operator@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-exponentiation-operator/-/babel-plugin-syntax-exponentiation-operator-6.13.0.tgz#9ee7e8337290da95288201a6a57f4170317830de"
 
+babel-plugin-syntax-export-extensions@^6.8.0:
+  version "6.13.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-syntax-export-extensions/-/babel-plugin-syntax-export-extensions-6.13.0.tgz#70a1484f0f9089a4e84ad44bac353c95b9b12721"
+
 babel-plugin-syntax-flow@^6.18.0, babel-plugin-syntax-flow@^6.3.13:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-flow/-/babel-plugin-syntax-flow-6.18.0.tgz#4c3ab20a2af26aa20cd25995c398c4eb70310c8d"
@@ -832,6 +836,13 @@ babel-plugin-transform-exponentiation-operator@^6.22.0, babel-plugin-transform-e
     babel-plugin-syntax-exponentiation-operator "^6.8.0"
     babel-runtime "^6.22.0"
 
+babel-plugin-transform-export-extensions@^6.22.0:
+  version "6.22.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-export-extensions/-/babel-plugin-transform-export-extensions-6.22.0.tgz#53738b47e75e8218589eea946cbbd39109bbe653"
+  dependencies:
+    babel-plugin-syntax-export-extensions "^6.8.0"
+    babel-runtime "^6.22.0"
+
 babel-plugin-transform-flow-strip-types@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-flow-strip-types/-/babel-plugin-transform-flow-strip-types-6.22.0.tgz#84cb672935d43714fdc32bce84568d87441cf7cf"
@@ -932,12 +943,13 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-preset-codogo@^1.0.5:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/babel-preset-codogo/-/babel-preset-codogo-1.0.9.tgz#456aa1237a883226bef4e980df4509a850d8746a"
+babel-preset-codogo@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/babel-preset-codogo/-/babel-preset-codogo-1.0.11.tgz#e0827f85afa424a4520469edfc75a7c447820f8f"
   dependencies:
     babel-plugin-polished "^1.0.3"
     babel-plugin-transform-decorators-legacy "^1.3.4"
+    babel-plugin-transform-export-extensions "^6.22.0"
     babel-plugin-transform-regenerator "^6.24.1"
     babel-plugin-transform-runtime "^6.23.0"
     babel-preset-react-app "^2.2.0"
@@ -1543,16 +1555,16 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-codogo-react-scripts@^0.9.10:
-  version "0.9.10"
-  resolved "https://registry.yarnpkg.com/codogo-react-scripts/-/codogo-react-scripts-0.9.10.tgz#884c5d9b620e85af55b7c3dc7c5f7e2e0db140ae"
+codogo-react-scripts:
+  version "0.9.13"
+  resolved "https://registry.yarnpkg.com/codogo-react-scripts/-/codogo-react-scripts-0.9.13.tgz#a2a83f7904ca0c39ec1bb76029d448731aa9b674"
   dependencies:
     autoprefixer "6.7.7"
     babel-core "^6.24.1"
     babel-eslint "^7.2.3"
     babel-jest "^19.0.0"
     babel-loader "^7.0.0"
-    babel-preset-codogo "^1.0.5"
+    babel-preset-codogo "^1.0.11"
     babel-runtime "^6.20.0"
     case-sensitive-paths-webpack-plugin "^2.0.0"
     chalk "1.1.3"
@@ -1566,12 +1578,12 @@ codogo-react-scripts@^0.9.10:
     eslint-loader "^1.7.1"
     eslint-plugin-flowtype "^2.32.1"
     eslint-plugin-import "^2.2.0"
-    eslint-plugin-jsx-a11y "4.0.0"
-    eslint-plugin-react "^6.10.3"
+    eslint-plugin-jsx-a11y "^5.0.3"
+    eslint-plugin-react "^7.0.1"
     extract-text-webpack-plugin "2.1.0"
     file-loader "^0.11.1"
-    fs-extra "^2.1.2"
-    graphql-tag "^2.0.0"
+    fs-extra "^3.0.1"
+    graphql-tag "^2.1.0"
     html-webpack-plugin "2.28.0"
     http-proxy-middleware "^0.17.4"
     jest "^19.0.2"
@@ -1582,13 +1594,13 @@ codogo-react-scripts@^0.9.10:
     resolve-path "^1.3.3"
     style-loader "^0.16.1"
     url-loader "0.5.8"
-    webpack "^2.4.1"
-    webpack-bundle-analyzer "^2.4.0"
+    webpack "^2.5.1"
+    webpack-bundle-analyzer "^2.8.1"
     webpack-dev-server "^2.4.2"
     webpack-manifest-plugin "1.1.0"
     whatwg-fetch "2.0.3"
   optionalDependencies:
-    fsevents "1.0.17"
+    fsevents "^1.1.1"
 
 color-convert@^1.0.0, color-convert@^1.3.0:
   version "1.9.0"
@@ -2435,7 +2447,7 @@ eslint-plugin-import@^2.2.0, eslint-plugin-import@2.2.0:
     minimatch "^3.0.3"
     pkg-up "^1.0.0"
 
-eslint-plugin-jsx-a11y@^4.0.0, eslint-plugin-jsx-a11y@4.0.0:
+eslint-plugin-jsx-a11y@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-4.0.0.tgz#779bb0fe7b08da564a422624911de10061e048ee"
   dependencies:
@@ -2445,6 +2457,18 @@ eslint-plugin-jsx-a11y@^4.0.0, eslint-plugin-jsx-a11y@4.0.0:
     emoji-regex "^6.1.0"
     jsx-ast-utils "^1.0.0"
     object-assign "^4.0.1"
+
+eslint-plugin-jsx-a11y@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-5.0.3.tgz#4a939f76ec125010528823331bf948cc573380b6"
+  dependencies:
+    aria-query "^0.5.0"
+    array-includes "^3.0.3"
+    ast-types-flow "0.0.7"
+    axobject-query "^0.1.0"
+    damerau-levenshtein "^1.0.0"
+    emoji-regex "^6.1.0"
+    jsx-ast-utils "^1.4.0"
 
 eslint-plugin-jsx-a11y@5.0.1:
   version "5.0.1"
@@ -2458,7 +2482,7 @@ eslint-plugin-jsx-a11y@5.0.1:
     emoji-regex "^6.1.0"
     jsx-ast-utils "^1.4.0"
 
-eslint-plugin-react@^6.10.0, eslint-plugin-react@^6.10.3:
+eslint-plugin-react@^6.10.0:
   version "6.10.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-6.10.3.tgz#c5435beb06774e12c7db2f6abaddcbf900cd3f78"
   dependencies:
@@ -2468,7 +2492,7 @@ eslint-plugin-react@^6.10.0, eslint-plugin-react@^6.10.3:
     jsx-ast-utils "^1.3.4"
     object.assign "^4.0.4"
 
-eslint-plugin-react@7.0.1:
+eslint-plugin-react@^7.0.1, eslint-plugin-react@7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.0.1.tgz#e78107e1e559c6e2b17786bb67c2e2a010ad0d2f"
   dependencies:
@@ -2768,9 +2792,9 @@ fileset@^2.0.2:
     glob "^7.0.3"
     minimatch "^3.0.3"
 
-filesize@^3.5.6:
-  version "3.5.6"
-  resolved "https://registry.yarnpkg.com/filesize/-/filesize-3.5.6.tgz#5fd98f3eac94ec9516ef8ed5782fad84a01a0a1a"
+filesize@^3.5.9:
+  version "3.5.10"
+  resolved "https://registry.yarnpkg.com/filesize/-/filesize-3.5.10.tgz#fc8fa23ddb4ef9e5e0ab6e1e64f679a24a56761f"
 
 filesize@3.3.0:
   version "3.3.0"
@@ -2895,14 +2919,7 @@ fs-extra@^0.30.0:
     path-is-absolute "^1.0.0"
     rimraf "^2.2.8"
 
-fs-extra@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-2.1.2.tgz#046c70163cef9aad46b0e4a7fa467fb22d71de35"
-  dependencies:
-    graceful-fs "^4.1.2"
-    jsonfile "^2.1.0"
-
-fs-extra@3.0.1:
+fs-extra@^3.0.1, fs-extra@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-3.0.1.tgz#3794f378c58b342ea7dbbb23095109c4b3b62291"
   dependencies:
@@ -2917,6 +2934,13 @@ fs.realpath@^1.0.0:
 fsevents@^1.0.0, fsevents@1.0.17:
   version "1.0.17"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.0.17.tgz#8537f3f12272678765b4fd6528c0f1f66f8f4558"
+  dependencies:
+    nan "^2.3.0"
+    node-pre-gyp "^0.6.29"
+
+fsevents@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.1.1.tgz#f19fd28f43eeaf761680e519a203c4d0b3d31aff"
   dependencies:
     nan "^2.3.0"
     node-pre-gyp "^0.6.29"
@@ -3061,6 +3085,10 @@ graphql-tag@^1.3.1:
 graphql-tag@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.0.0.tgz#f3efe3b4d64f33bfe8479ae06a461c9d72f2a6fe"
+
+graphql-tag@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.1.0.tgz#450b5049d2e1d8bc38f1c62b8225930a39aba770"
 
 graphql@^0.9.3:
   version "0.9.3"
@@ -6086,7 +6114,7 @@ rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
-safe-buffer@^5.0.1:
+safe-buffer@^5.0.1, safe-buffer@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
 
@@ -6730,6 +6758,15 @@ uglify-js@^2.6, uglify-js@^2.8.5, uglify-js@~2.8.22:
   optionalDependencies:
     uglify-to-browserify "~1.0.0"
 
+uglify-js@^2.8.27:
+  version "2.8.27"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.27.tgz#47787f912b0f242e5b984343be8e35e95f694c9c"
+  dependencies:
+    source-map "~0.5.1"
+    yargs "~3.10.0"
+  optionalDependencies:
+    uglify-to-browserify "~1.0.0"
+
 uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
@@ -6737,6 +6774,10 @@ uglify-to-browserify@~1.0.0:
 uid-number@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
+
+ultron@~1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.0.tgz#b07a2e6a541a815fc6a34ccd4533baec307ca864"
 
 underscore@~1.4.4:
   version "1.4.4"
@@ -6937,20 +6978,21 @@ webidl-conversions@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.1.tgz#8015a17ab83e7e1b311638486ace81da6ce206a0"
 
-webpack-bundle-analyzer@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/webpack-bundle-analyzer/-/webpack-bundle-analyzer-2.4.0.tgz#e406b016e7452bc864793848c79308782accba8e"
+webpack-bundle-analyzer@^2.8.1:
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/webpack-bundle-analyzer/-/webpack-bundle-analyzer-2.8.2.tgz#8b6240c29a9d63bc72f09d920fb050adbcce9fe8"
   dependencies:
     acorn "^5.0.3"
     chalk "^1.1.3"
     commander "^2.9.0"
     ejs "^2.5.6"
     express "^4.15.2"
-    filesize "^3.5.6"
+    filesize "^3.5.9"
     gzip-size "^3.0.0"
     lodash "^4.17.4"
     mkdirp "^0.5.1"
     opener "^1.4.3"
+    ws "^2.3.1"
 
 webpack-dev-middleware@^1.10.2, webpack-dev-middleware@^1.9.0:
   version "1.10.2"
@@ -7026,7 +7068,33 @@ webpack-sources@^0.2.3:
     source-list-map "^1.1.1"
     source-map "~0.5.3"
 
-webpack@^2.4.1, webpack@2.5.1:
+webpack@^2.5.1:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.6.0.tgz#7e650a92816abff5db5f43316b0b8b19b13d76c1"
+  dependencies:
+    acorn "^5.0.0"
+    acorn-dynamic-import "^2.0.0"
+    ajv "^4.7.0"
+    ajv-keywords "^1.1.1"
+    async "^2.1.2"
+    enhanced-resolve "^3.0.0"
+    interpret "^1.0.0"
+    json-loader "^0.5.4"
+    json5 "^0.5.1"
+    loader-runner "^2.3.0"
+    loader-utils "^0.2.16"
+    memory-fs "~0.4.1"
+    mkdirp "~0.5.0"
+    node-libs-browser "^2.0.0"
+    source-map "^0.5.3"
+    supports-color "^3.1.0"
+    tapable "~0.2.5"
+    uglify-js "^2.8.27"
+    watchpack "^1.3.1"
+    webpack-sources "^0.2.3"
+    yargs "^6.0.0"
+
+webpack@2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.5.1.tgz#61742f0cf8af555b87460a9cd8bba2f1e3ee2fce"
   dependencies:
@@ -7148,6 +7216,13 @@ write@^0.2.1:
   resolved "https://registry.yarnpkg.com/write/-/write-0.2.1.tgz#5fc03828e264cea3fe91455476f7a3c566cb0757"
   dependencies:
     mkdirp "^0.5.1"
+
+ws@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-2.3.1.tgz#6b94b3e447cb6a363f785eaf94af6359e8e81c80"
+  dependencies:
+    safe-buffer "~5.0.1"
+    ultron "~1.1.0"
 
 xdg-basedir@^2.0.0:
   version "2.0.0"
