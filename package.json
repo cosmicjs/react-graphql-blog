@@ -30,8 +30,7 @@
     "format": "yarn run prettier && eslint --fix src",
     "lint": "eslint --max-warnings 5 src",
     "prettier": "prettier --use-tabs --tab-width 4 --trailing-comma all --write \"src/**/*.js\"",
-    "start-dev": "react-scripts start",
-    "start": "npm run build",
+    "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom"
   }
 }
