@@ -3,6 +3,7 @@ import moment from "moment";
 import { NavLink, } from "react-router-dom";
 import styled, { css, keyframes, } from "styled-components";
 import { compose, graphql, } from "react-apollo";
+import R from 'ramda'
 
 import postIcon from "../img/postIcon.svg";
 

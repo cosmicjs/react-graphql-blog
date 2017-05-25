@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Route, Switch, } from "react-router";
 import { Helmet, } from "react-helmet";
+import R from 'ramda'
 
 import Post, { Blank, Home, FourOhFour, } from "./post";
 import SideBar from "./sidebar";

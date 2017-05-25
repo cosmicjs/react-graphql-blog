@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import R from 'ramda'
 
 const SocialContainer = styled.div`
 	flex-direction: row;

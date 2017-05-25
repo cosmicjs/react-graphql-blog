@@ -2,6 +2,7 @@ import React from "react";
 import { graphql, } from "react-apollo";
 import styled, { keyframes, } from "styled-components";
 import { Helmet, } from "react-helmet";
+import R from 'ramda'
 
 import { getPostQuery, } from "../graphql";
 import config from "../config";
