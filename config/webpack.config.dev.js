@@ -142,6 +142,8 @@ module.exports = {
           /\.gif$/,
           /\.jpe?g$/,
           /\.png$/,
+          /\.graphql$/,
+          /\.gql$/
         ],
         loader: require.resolve('file-loader'),
         options: {
@@ -158,6 +160,12 @@ module.exports = {
           limit: 10000,
           name: 'static/media/[name].[hash:8].[ext]',
         },
+      },
+      {
+          test: /\.(graphql|gql)$/,
+          include: paths.appSrc,
+          exclude: /node_modules/,
+          loader: 'graphql-tag/loader'
       },
       // Process JS with Babel.
       {
