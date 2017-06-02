@@ -19,9 +19,7 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "styled-components": "^1.4.5",
-    "webpack-dev-server": "2.4.2"
-  },
-  "devDependencies": {
+    "webpack-dev-server": "2.4.2",
     "autoprefixer": "7.1.0",
     "babel-core": "6.24.1",
     "babel-eslint": "7.2.3",
